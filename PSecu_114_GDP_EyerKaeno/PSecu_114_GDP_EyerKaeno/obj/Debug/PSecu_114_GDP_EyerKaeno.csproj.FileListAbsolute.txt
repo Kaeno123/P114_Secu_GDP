@@ -1,0 +1,8 @@
+C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\bin\Debug\PSecu_114_GDP_EyerKaeno.exe.config
+C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\bin\Debug\PSecu_114_GDP_EyerKaeno.exe
+C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\bin\Debug\PSecu_114_GDP_EyerKaeno.pdb
+C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.csproj.AssemblyReference.cache
+C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.csproj.SuggestedBindingRedirects.cache
+C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.csproj.CoreCompileInputs.cache
+C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.exe
+C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.pdb
