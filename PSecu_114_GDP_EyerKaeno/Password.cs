@@ -71,6 +71,8 @@ namespace PSecu_114_GDP_EyerKaeno
                 _password = userchoice;
             }
 
+            FileManager fileManager = new FileManager();
+            fileManager.WriteInfoToFile(_nameSite, _url, _username, _password);
             Console.Clear();
             Console.WriteLine("Les modifications ont bien été enregistrées. Appuyez sur Enter pour revenir au menu.");
             Console.ReadLine();
@@ -81,9 +83,11 @@ namespace PSecu_114_GDP_EyerKaeno
         /// </summary>
         public void ShowPassword()
         {
+            FileManager fileInfo = new FileManager();
+
             Console.WriteLine($"\nURL : {url}");
-            Console.WriteLine($"Login : {_username}");
-            Console.WriteLine($"Mot de passe : {password}");
+            Console.WriteLine($"Login : {fileInfo.CesarDecryptingFile(_nameSite, fileInfo.CESARSHIFT, 1)}");
+            Console.WriteLine($"Mot de passe : {fileInfo.CesarDecryptingFile(_nameSite, fileInfo.CESARSHIFT, 2)}");
             Console.WriteLine("Appuyez sur Enter pour masquer le mot de passe et revenir au menu");
 
             Console.ReadLine();

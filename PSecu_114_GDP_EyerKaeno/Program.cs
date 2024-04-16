@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace PSecu_114_GDP_EyerKaeno
 {
     internal class Program
     {
         static List<Password> maxPassword = new List<Password>();
+        static FileManager fileManager = new FileManager();
 
         static void Main(string[] args)
         {
@@ -155,6 +157,7 @@ namespace PSecu_114_GDP_EyerKaeno
             {
                 maxPassword.Add(new Password(nameSite, url, login, password));
             }
+            fileManager.WriteInfoToFile(nameSite, url, login, password);
             Console.WriteLine("\nVotre mot de passe a bien été enregistré.\nAppuyez sur une Enter pour revenir au menu");
             Console.ReadLine();
         }
@@ -232,6 +235,7 @@ namespace PSecu_114_GDP_EyerKaeno
                             userchoice2 = Console.ReadLine();
                             if (userchoice2 == "o")
                             {
+                                fileManager.DeleteFile(maxPassword[i-2].nameSite);
                                 maxPassword.RemoveAt(i - 2);
                             }
                             else
