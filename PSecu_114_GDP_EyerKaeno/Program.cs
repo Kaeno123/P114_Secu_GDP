@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace PSecu_114_GDP_EyerKaeno
@@ -14,38 +13,12 @@ namespace PSecu_114_GDP_EyerKaeno
 
         static void Main(string[] args)
         {
-            Login();
-            Menu();
-        }
-
-        /// <summary>
-        /// Connection au gestionnaire de mot de passe
-        /// </summary>
-        private static void Login()
-        {
-            Password password = new Password("GDP", "None", "Kaeno", "ABCD");
-            int numberTry = 0;
-            string mdp = "";
-            do
+            bool verifyMaster = fileManager.VerifiyMasterPassword();
+            if (verifyMaster is true)
             {
-                Console.Write("Entrez votre mot de passe : ");
-                mdp = Console.ReadLine();
-
-                if (mdp == "ABCD")
-                {
-                    numberTry = 3;
-                }
-                else
-                {
-                    numberTry++;
-
-                    if (numberTry == 3)
-                    {
-                        Environment.Exit(0);
-                    }
-                    Console.WriteLine($"Il vous reste {3 - numberTry} essai(s).\n");
-                }
-            } while (numberTry != 3);            
+                maxPassword = fileManager.GetEachFilesOfDir();
+            }            
+            Menu();
         }
 
         /// <summary>
@@ -105,7 +78,7 @@ namespace PSecu_114_GDP_EyerKaeno
             Console.WriteLine("***********************************************************\n");
             Console.Write("Faites votre choix : ");
 
-            userChoice= Console.ReadLine();
+            userChoice = Console.ReadLine();
 
             switch (userChoice)
             {

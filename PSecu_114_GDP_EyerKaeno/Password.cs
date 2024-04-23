@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace PSecu_114_GDP_EyerKaeno
 {
@@ -34,11 +29,13 @@ namespace PSecu_114_GDP_EyerKaeno
         public void ModifyPWD()
         {
             string userchoice = "";
+            FileManager fileManager = new FileManager();
 
             Console.WriteLine($"Voici le nom du site actuelle : {_nameSite}. Souhaitez-vous le changer ? o/n");
             userchoice = Console.ReadLine();
             if (userchoice == "o")
             {
+                fileManager.DeleteFile(_nameSite);
                 Console.Write("\nÉcrivez le nouveau nom du site : ");
                 userchoice = Console.ReadLine();
                 _nameSite = userchoice;
@@ -71,7 +68,6 @@ namespace PSecu_114_GDP_EyerKaeno
                 _password = userchoice;
             }
 
-            FileManager fileManager = new FileManager();
             fileManager.WriteInfoToFile(_nameSite, _url, _username, _password);
             Console.Clear();
             Console.WriteLine("Les modifications ont bien été enregistrées. Appuyez sur Enter pour revenir au menu.");

@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Security.Cryptography;
+using System.Security.Policy;
 
 namespace PSecu_114_GDP_EyerKaeno
 {
     internal class FileManager
     {
-        private string _FILEPATH = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\"; //Chemin de fichier temporaire
+        private string _filePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\"; //Chemin de fichier temporaire
+        private string _masterFilePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\";
         private const int _CESARSHIFT = 6;
         public int CESARSHIFT { get { return _CESARSHIFT; } }
           
@@ -22,22 +25,22 @@ namespace PSecu_114_GDP_EyerKaeno
         /// <param name="mdp"></param>
         public void WriteInfoToFile(string nameSite, string url, string login, string mdp)
         {
-            _FILEPATH += $"{nameSite}.txt";
+            _filePath += $"{nameSite}.txt";
 
-            File.WriteAllText(_FILEPATH, string.Empty); //Anticipe le cas où l'user voudrait modifier une information depuis la console.
+            File.WriteAllText(_filePath, string.Empty); //Anticipe le cas où l'user voudrait modifier une information depuis la console.
 
             //Crypte les informations sensibles
             login = CesarCrypting(login, _CESARSHIFT);
             mdp = CesarCrypting(mdp, _CESARSHIFT);
 
             //Écrit les informations dans le fichier texte
-            using (StreamWriter writer = new StreamWriter(_FILEPATH))
+            using (StreamWriter writer = new StreamWriter(_filePath))
             {
                 writer.WriteLine(url);
                 writer.WriteLine(login);
                 writer.WriteLine(mdp);
             }
-            _FILEPATH = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\";
+            _filePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\";
         }        
         
         /// <summary>
@@ -73,11 +76,11 @@ namespace PSecu_114_GDP_EyerKaeno
         /// <returns></returns>
         internal string CesarDecryptingFile(string nameSite, int difference, int line)
         {
-            _FILEPATH += $"{nameSite}.txt";
-            string lineFile = File.ReadLines(_FILEPATH).ElementAt(line);
-            _FILEPATH = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\";
+            _filePath += $"{nameSite}.txt";
+            string lineFile = File.ReadLines(_filePath).ElementAt(line);
+            _filePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\";
 
-            return CesarDecrypting(lineFile, 26 - difference);
+            return CesarDecrypting(lineFile, difference);
         }
 
         public string CesarDecrypting(string linefile, int difference)
@@ -88,8 +91,9 @@ namespace PSecu_114_GDP_EyerKaeno
             {
                 if (char.IsLetter(caractere))
                 {
-                    char beginningalphabet = char.IsUpper(caractere) ? 'A' : 'a';
-                    decryptedtext += (char)((((caractere - difference) - beginningalphabet + 26) % 26) + beginningalphabet);
+                    char alphabetBeginning = char.IsUpper(caractere) ? 'A' : 'a';
+                    decryptedtext += (char)((((caractere - alphabetBeginning) - difference + 26) % 26) + alphabetBeginning);
+
                 }
                 else
                 {
@@ -105,12 +109,93 @@ namespace PSecu_114_GDP_EyerKaeno
         /// <param name="nameSite"></param>
         public void DeleteFile(string nameSite)
         {
-            _FILEPATH += $"{nameSite}.txt";
+            _filePath += $"{nameSite}.txt";
 
             //Supprime le fichier
-            File.Delete(_FILEPATH);
+            File.Delete(_filePath);
 
-            _FILEPATH = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\";
+            _filePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\";
+        }
+
+        /// <summary>
+        /// Lors du lancement du programme, la méthode s'exécute pour vérifier si le répertoire contient des MDP
+        /// </summary>
+        /// <returns></returns>
+        public List<Password> GetEachFilesOfDir()
+        {
+           string[] files = Directory.GetFiles(_filePath);
+           List<Password> passwordMemo= new List<Password>();
+
+            if (files.Length > 0)
+            {
+                foreach (string MDP in files)
+                {
+                    string nameSite = MDP.Replace(@"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\", "").Replace(".txt", "");
+                    string[] lines = File.ReadAllLines(MDP);
+                    string[] infoFile = new string[3];
+                    int count = 0;
+                    foreach (string line in lines)
+                    {
+                        infoFile[count] = line;
+                        count++;
+                    }
+                    Password passTemp = new Password(nameSite, infoFile[0], infoFile[1], infoFile[2]) ;
+                    passwordMemo.Add(passTemp);
+                }
+            }
+            return passwordMemo;
+        }
+
+        /// <summary>
+        /// Vérifie si l'user possède un master password, si oui, ça demande le mdp. Si non, demande de création.
+        /// </summary>
+        public bool VerifiyMasterPassword()
+        {
+            _masterFilePath += "config.txt";
+            
+            bool fileFound = File.Exists(_masterFilePath);
+
+            if (fileFound is true)//Si le fichier existe, demande d'entrer le MDP
+            {
+                int numberTry = 0;
+                string DecryptedPassword = CesarDecrypting(File.ReadAllText(_masterFilePath), _CESARSHIFT);
+                do
+                {
+                    Console.Write("Entrez votre mot de passe : ");
+                    string mdpTry = Console.ReadLine();
+
+                    if (mdpTry == DecryptedPassword)//Si le mdp entré est correct, l'user accède au menu.
+                    {
+                        numberTry = 3;
+                        Console.WriteLine("yes");
+                    }
+                    else if(mdpTry != DecryptedPassword) //3 essais, si échoué, fermetture de la console.
+                    {
+                        numberTry++;
+
+                        if (numberTry == 3)
+                        {
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Il vous reste {3 - numberTry} essai(s).\n");
+                        }
+                    }
+                } while (numberTry != 3);
+            }            
+            else if (fileFound is false)//Si le fichier n'existe pas, demande un MDP pour le créer
+            {
+                Console.Write("Veuillez créer votre mot de passe maître : ");
+                string masterPassword = Console.ReadLine();
+                string masterPass = CesarCrypting(masterPassword, _CESARSHIFT);
+
+                using (StreamWriter writer = new StreamWriter(_masterFilePath))
+                {
+                    writer.Write(masterPass);
+                }
+            }
+            return fileFound;
         }
     }
 }

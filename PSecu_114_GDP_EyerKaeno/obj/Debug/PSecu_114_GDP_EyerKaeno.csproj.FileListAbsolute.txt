@@ -7,7 +7,6 @@ C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\ob
 C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.exe
 C:\Users\pg43msk\source\repos\PSecu_114_GDP_EyerKaeno\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.pdb
 D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.csproj.AssemblyReference.cache
-D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.csproj.SuggestedBindingRedirects.cache
 D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.csproj.CoreCompileInputs.cache
 D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.exe
 D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.pdb
