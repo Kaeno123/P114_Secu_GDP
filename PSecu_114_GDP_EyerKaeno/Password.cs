@@ -82,8 +82,8 @@ namespace PSecu_114_GDP_EyerKaeno
             FileManager fileInfo = new FileManager();
 
             Console.WriteLine($"\nURL : {url}");
-            Console.WriteLine($"Login : {fileInfo.CesarDecryptingFile(_nameSite, fileInfo.CESARSHIFT, 1)}");
-            Console.WriteLine($"Mot de passe : {fileInfo.CesarDecryptingFile(_nameSite, fileInfo.CESARSHIFT, 2)}");
+            Console.WriteLine($"Login : {fileInfo.DecryptingFile(_nameSite, fileInfo.Key, 1)}");
+            Console.WriteLine($"Mot de passe : {fileInfo.DecryptingFile(_nameSite, fileInfo.Key, 2)}");
             Console.WriteLine("Appuyez sur Enter pour masquer le mot de passe et revenir au menu");
 
             Console.ReadLine();

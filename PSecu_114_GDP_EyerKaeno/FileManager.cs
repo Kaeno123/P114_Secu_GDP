@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Security.Cryptography;
-using System.Security.Policy;
 
 namespace PSecu_114_GDP_EyerKaeno
 {
     internal class FileManager
     {
-        private string _filePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\"; //Chemin de fichier temporaire
-        private string _masterFilePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\";
+        private string _filePath = @"D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\password\"; //Chemin de fichier temporaire
+        private string _masterFilePath = @"D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\";
         private const int _CESARSHIFT = 6;
+        private string _masterPassowrd;
+        private string _key = "KaEnoEyeR";
+        public string Key { get { return _key; } }
+        
         public int CESARSHIFT { get { return _CESARSHIFT; } }
           
         /// <summary>
@@ -30,8 +30,10 @@ namespace PSecu_114_GDP_EyerKaeno
             File.WriteAllText(_filePath, string.Empty); //Anticipe le cas où l'user voudrait modifier une information depuis la console.
 
             //Crypte les informations sensibles
-            login = CesarCrypting(login, _CESARSHIFT);
-            mdp = CesarCrypting(mdp, _CESARSHIFT);
+            /*login = CesarCrypting(login, _CESARSHIFT);
+            mdp = CesarCrypting(mdp, _CESARSHIFT);*/
+            login = VigenereCrypting(login, _key);
+            mdp = VigenereDecrypting(mdp, _key);
 
             //Écrit les informations dans le fichier texte
             using (StreamWriter writer = new StreamWriter(_filePath))
@@ -40,7 +42,7 @@ namespace PSecu_114_GDP_EyerKaeno
                 writer.WriteLine(login);
                 writer.WriteLine(mdp);
             }
-            _filePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\";
+            _filePath = @"D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\password\";
         }        
         
         /// <summary>
@@ -57,8 +59,35 @@ namespace PSecu_114_GDP_EyerKaeno
             {
                 if (char.IsLetter(letter))
                 {
-                    char  alphabetBeginning = char.IsUpper(letter) ? 'A' : 'a';
+                    char alphabetBeginning = char.IsUpper(letter) ? 'A' : 'a';
                     cryptedtext += (char)((((letter + difference) - alphabetBeginning) % 26) + alphabetBeginning);
+                }
+                else
+                {
+                    cryptedtext += letter;
+                }
+            }
+            return cryptedtext;
+        }
+
+        /// <summary>
+        /// Chiffre un texte avec le chiffrement de Vigenère
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        internal string VigenereCrypting(string text, string key)
+        {
+            string cryptedtext = "";
+            char[] splitKey = key.ToCharArray();
+            int countLetterKey = 0;
+            foreach (char letter in text)
+            {
+                if (char.IsLetter(letter))
+                {
+                    char alphabetBeginning = char.IsUpper(letter) ? 'A' : 'a';
+                    cryptedtext += (char)(((letter + splitKey[countLetterKey] - alphabetBeginning) % 26) + alphabetBeginning);
+                    countLetterKey++;
                 }
                 else
                 {
@@ -74,15 +103,21 @@ namespace PSecu_114_GDP_EyerKaeno
         /// <param name="text"></param>
         /// <param name="difference"></param>
         /// <returns></returns>
-        internal string CesarDecryptingFile(string nameSite, int difference, int line)
+        internal string DecryptingFile(string nameSite,/*int difference*/ string key, int line)
         {
             _filePath += $"{nameSite}.txt";
             string lineFile = File.ReadLines(_filePath).ElementAt(line);
-            _filePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\";
+            _filePath = @"D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\password\";
 
-            return CesarDecrypting(lineFile, difference);
+            return VigenereDecrypting(lineFile, key) /*CesarDecrypting(lineFile, difference)*/;
         }
 
+        /// <summary>
+        /// Déchiffre le chiffrement de César
+        /// </summary>
+        /// <param name="linefile"></param>
+        /// <param name="difference"></param>
+        /// <returns></returns>
         public string CesarDecrypting(string linefile, int difference)
         {
             string decryptedtext = "";
@@ -93,13 +128,35 @@ namespace PSecu_114_GDP_EyerKaeno
                 {
                     char alphabetBeginning = char.IsUpper(caractere) ? 'A' : 'a';
                     decryptedtext += (char)((((caractere - alphabetBeginning) - difference + 26) % 26) + alphabetBeginning);
-
                 }
                 else
                 {
                     decryptedtext += caractere;
                 }
             }
+            return decryptedtext;
+        }
+
+        internal string VigenereDecrypting(string linefile, string key)
+        {
+            string decryptedtext = "";
+            char[] splitKey = key.ToCharArray();
+            int countLetterKey = 0;
+
+            foreach (char caractere in linefile)
+            {
+                if (char.IsLetter(caractere))
+                {
+                    char alphabetBeginning = char.IsUpper(caractere) ? 'A' : 'a';
+                    decryptedtext += (char)((((caractere - alphabetBeginning) - splitKey[countLetterKey] + 26) % 26) + alphabetBeginning);
+                    countLetterKey++;
+                }
+                else
+                {
+                    decryptedtext += caractere;
+                }
+            }
+
             return decryptedtext;
         }
 
@@ -114,7 +171,7 @@ namespace PSecu_114_GDP_EyerKaeno
             //Supprime le fichier
             File.Delete(_filePath);
 
-            _filePath = @"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\";
+            _filePath = @"D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\password\";
         }
 
         /// <summary>
@@ -130,7 +187,7 @@ namespace PSecu_114_GDP_EyerKaeno
             {
                 foreach (string MDP in files)
                 {
-                    string nameSite = MDP.Replace(@"D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\password\", "").Replace(".txt", "");
+                    string nameSite = MDP.Replace(@"D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\password\", "").Replace(".txt", "");
                     string[] lines = File.ReadAllLines(MDP);
                     string[] infoFile = new string[3];
                     int count = 0;
@@ -144,6 +201,22 @@ namespace PSecu_114_GDP_EyerKaeno
                 }
             }
             return passwordMemo;
+        }
+
+        /// <summary>
+        /// chiffre le master password avec le password lui-même en clé d'enchiffrement
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public string MasterPasswordCrypting(string password)
+        {
+            string passwordCrypted = "";
+            foreach (char letter in password)
+            {
+                char shift = char.IsUpper(letter) ? 'A' : 'a';
+                passwordCrypted += (char)(((letter + shift) % 26) + shift);
+            }
+            return passwordCrypted;
         }
 
         /// <summary>
@@ -166,6 +239,7 @@ namespace PSecu_114_GDP_EyerKaeno
 
                     if (mdpTry == DecryptedPassword)//Si le mdp entré est correct, l'user accède au menu.
                     {
+                        _masterPassowrd = DecryptedPassword;
                         numberTry = 3;
                         Console.WriteLine("yes");
                     }
@@ -188,7 +262,8 @@ namespace PSecu_114_GDP_EyerKaeno
             {
                 Console.Write("Veuillez créer votre mot de passe maître : ");
                 string masterPassword = Console.ReadLine();
-                string masterPass = CesarCrypting(masterPassword, _CESARSHIFT);
+                _masterPassowrd = masterPassword;
+                string masterPass = MasterPasswordCrypting(masterPassword);
 
                 using (StreamWriter writer = new StreamWriter(_masterFilePath))
                 {

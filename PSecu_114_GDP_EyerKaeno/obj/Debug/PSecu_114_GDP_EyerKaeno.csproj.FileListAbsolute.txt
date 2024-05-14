@@ -13,3 +13,10 @@ D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.p
 D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\bin\Debug\PSecu_114_GDP_EyerKaeno.exe.config
 D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\bin\Debug\PSecu_114_GDP_EyerKaeno.exe
 D:\Module 114\Projet\PSecu_114_GDP_EyerKaeno\bin\Debug\PSecu_114_GDP_EyerKaeno.pdb
+D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\bin\Debug\PSecu_114_GDP_EyerKaeno.exe.config
+D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\bin\Debug\PSecu_114_GDP_EyerKaeno.exe
+D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\bin\Debug\PSecu_114_GDP_EyerKaeno.pdb
+D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.csproj.AssemblyReference.cache
+D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.csproj.CoreCompileInputs.cache
+D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.exe
+D:\Module 114 - Sécurité\Projet\PSecu_114_GDP_EyerKaeno\obj\Debug\PSecu_114_GDP_EyerKaeno.pdb

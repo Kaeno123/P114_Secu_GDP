@@ -10,6 +10,7 @@ namespace PSecu_114_GDP_EyerKaeno
     {
         static List<Password> maxPassword = new List<Password>();
         static FileManager fileManager = new FileManager();
+        
 
         static void Main(string[] args)
         {
@@ -30,10 +31,18 @@ namespace PSecu_114_GDP_EyerKaeno
             do
             {            
                 Console.Clear();
-                Console.WriteLine("***********************************************************");
+
+                                                Console.WriteLine(@"
+                                 __             ___                                    _ 
+                                / _\ ___  ___  / _ \__ _ ___ _____      _____  _ __ __| |
+                                \ \ / _ \/ __|/ /_)/ _` / __/ __\ \ /\ / / _ \| '__/ _` |
+                                _\ \  __/ (__/ ___/ (_| \__ \__ \\ V  V / (_) | | | (_| |
+                                \__/\___|\___\/    \__,_|___/___/ \_/\_/ \___/|_|  \__,_|
+                                                         
+                                               ");
+
                 Console.WriteLine("Séléctionnez une action :");
-                Console.WriteLine("1. Consulter un mot de passe\n2. Ajouter un mot de passe\n3. Modifier un mot de passe\n4. Supprimer une mot de passe\n5. Quitter le programme");
-                Console.WriteLine("***********************************************************\n");
+                Console.WriteLine("1. Consulter un mot de passe\n2. Ajouter un mot de passe\n3. Modifier un mot de passe\n4. Supprimer une mot de passe\n5. Quitter le programme\n");
                 Console.Write("Faites votre choix : ");
 
                 userChoice = Console.ReadLine();
