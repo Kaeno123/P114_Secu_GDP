@@ -1,4 +1,9 @@
-﻿using System;
+﻿///ETML
+///Auteur : Kaeno Eyer
+///Date : 19.04.2024
+///Description : Classe contenant les propriétés d'un mot de passe et des méthodes 
+///
+using System;
 
 namespace PSecu_114_GDP_EyerKaeno
 {
@@ -18,10 +23,10 @@ namespace PSecu_114_GDP_EyerKaeno
             _nameSite = Sitename;
         }
 
-        public string password { get { return _password; } }
-        public string username { get { return _username; } }
-        public string url { get { return _url; } }
-        public string nameSite { get { return _nameSite; } }
+        public string Passwords { get { return _password; } }
+        public string Username { get { return _username; } }
+        public string Url { get { return _url; } }
+        public string NameSite { get { return _nameSite; } }
         
         /// <summary>
         /// Propose de modifier chaque propriété de la classe Password
@@ -40,12 +45,12 @@ namespace PSecu_114_GDP_EyerKaeno
                 userchoice = Console.ReadLine();
                 _nameSite = userchoice;
             }
-
+            
             Console.WriteLine($"Voici l'URL actuelle du site : {_url}. Souhaitez-vous le changer ? o/n");
             userchoice = Console.ReadLine();
             if (userchoice == "o")
             {
-                Console.Write("\nÉcrivez le nouvel url du site : ");
+                Console.Write("\nÉcrivez le nouvel Url du site : ");
                 userchoice = Console.ReadLine();
                 _url = userchoice;
             }
@@ -81,7 +86,7 @@ namespace PSecu_114_GDP_EyerKaeno
         {
             FileManager fileInfo = new FileManager();
 
-            Console.WriteLine($"\nURL : {url}");
+            Console.WriteLine($"\nURL : {_url}");
             Console.WriteLine($"Login : {fileInfo.DecryptingFile(_nameSite, fileInfo.Key, 1)}");
             Console.WriteLine($"Mot de passe : {fileInfo.DecryptingFile(_nameSite, fileInfo.Key, 2)}");
             Console.WriteLine("Appuyez sur Enter pour masquer le mot de passe et revenir au menu");

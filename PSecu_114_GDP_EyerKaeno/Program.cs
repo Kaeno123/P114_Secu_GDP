@@ -1,8 +1,11 @@
-﻿using System;
+﻿///ETML
+///Auteur : Kaeno Eyer
+///Date : 19.04.2024
+///Description : Programme pincipal, gestion de l'interface
+///
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.IO;
 
 namespace PSecu_114_GDP_EyerKaeno
 {
@@ -42,7 +45,7 @@ namespace PSecu_114_GDP_EyerKaeno
                                                ");
 
                 Console.WriteLine("Séléctionnez une action :");
-                Console.WriteLine("1. Consulter un mot de passe\n2. Ajouter un mot de passe\n3. Modifier un mot de passe\n4. Supprimer une mot de passe\n5. Quitter le programme\n");
+                Console.WriteLine("1. Consulter un mot de passe\n2. Ajouter un mot de passe\n3. Modifier un mot de passe\n4. Supprimer un mot de passe\n5. Quitter le programme\n");
                 Console.Write("Faites votre choix : ");
 
                 userChoice = Console.ReadLine();
@@ -82,7 +85,7 @@ namespace PSecu_114_GDP_EyerKaeno
             Console.WriteLine("1. Retour au menu principal");
             for (int i = 0; i < maxPassword.Count(); i++)
             {
-                Console.WriteLine($"{i +2}. {maxPassword[i].nameSite}");
+                Console.WriteLine($"{i +2}. {maxPassword[i].NameSite}");
             }
             Console.WriteLine("***********************************************************\n");
             Console.Write("Faites votre choix : ");
@@ -156,7 +159,7 @@ namespace PSecu_114_GDP_EyerKaeno
             Console.WriteLine("1. Retour au menu principal");
             for (int i = 0; i < maxPassword.Count(); i++)
             {
-                Console.WriteLine($"{i + 2}. {maxPassword[i].nameSite}");
+                Console.WriteLine($"{i + 2}. {maxPassword[i].NameSite}");
             }
             Console.WriteLine("***********************************************************\n");
             Console.Write("Faites votre choix : ");
@@ -194,7 +197,7 @@ namespace PSecu_114_GDP_EyerKaeno
             Console.WriteLine("1. Retour au menu principal");
             for (int i = 0; i < maxPassword.Count(); i++)
             {
-                Console.WriteLine($"{i + 2}. {maxPassword[i].nameSite}");
+                Console.WriteLine($"{i + 2}. {maxPassword[i].NameSite}");
             }
             Console.WriteLine("***********************************************************\n");
             Console.Write("Faites votre choix : ");
@@ -213,11 +216,11 @@ namespace PSecu_114_GDP_EyerKaeno
                         if (userChoice == i.ToString())
                         {
                             string userchoice2 = "";
-                            Console.WriteLine($"Êtes-vous certain de vouloir supprimer {maxPassword[i-2].nameSite} ? o/n");
+                            Console.WriteLine($"Êtes-vous certain de vouloir supprimer {maxPassword[i-2].NameSite} ? o/n");
                             userchoice2 = Console.ReadLine();
                             if (userchoice2 == "o")
                             {
-                                fileManager.DeleteFile(maxPassword[i-2].nameSite);
+                                fileManager.DeleteFile(maxPassword[i-2].NameSite);
                                 maxPassword.RemoveAt(i - 2);
                             }
                             else
